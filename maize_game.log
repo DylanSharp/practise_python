@@ -1,0 +1,8 @@
+INFO:root:Trap: (1, 1), Door: (0, 0), Player: (0, 2)
+INFO:root:Trap: (2, 2), Door: (0, 2), Player: (1, 1)
+INFO:root:Trap: (1, 2), Door: (2, 1), Player: (2, 2)
+INFO:root:Trap: (1, 2), Door: (1, 0), Player: (0, 2)
+INFO:root:Trap: (1, 1), Door: (2, 1), Player: (1, 2)
+INFO:root:Trap: (1, 0), Door: (2, 0), Player: (1, 1)
+INFO:root:Trap: (2, 0), Door: (1, 0), Player: (0, 1)
+INFO:root:Trap: (1, 2), Door: (2, 1), Player: (2, 0)

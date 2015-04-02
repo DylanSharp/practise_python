@@ -1,0 +1,419 @@
+<!--JAVASCRIPT-->
+<script type="text/javascript">
+    function onPageLoad() {
+        //Show correct promissory mandate t&c
+        if ({!{loan.client.category.name}!} != "Grant Recipient") {
+            document.getElementById("grindrod_header").style.display = 'none';
+            document.getElementById("grindrod_terms").style.display = 'none';
+        } else {
+            document.getElementById("naedo_header").style.display = 'none';
+            document.getElementById("naedo_terms").style.display = 'none';
+        }
+        //Show feza card terms t&c
+        if ({!{loan.payout_method}!} == 0) {
+            document.getElementById("feza_header").style.display = 'none';
+            document.getElementById("feza_terms").style.display = 'none';
+        }
+        //Format FEZA Card Number to look like 1234 56** **** **78
+        var bcn = {!{loan.client.ewallet.feza_card}!};
+        var feza_card = bcn.substr(0,4) + " " + bcn.substr(4,2) + "** **** " + bcn.substr(12,4);
+        document.getElementById("feza_card").ininnerHTML = feza_card;
+    }
+</script>
+
+
+
+<!--CSS-->
+<style type="text/css">
+    .break {
+        page-break-before: always;
+    }
+    .table {
+        margin-left:auto; 
+        margin-right:auto;
+        max-width:1000px;
+        min-width:820px;
+        border-color:black;
+        border-collapse:collapse;
+        font-family:Arial
+    }
+    .table th {
+        font-size:16px;
+        padding:5px;
+        border-style:solid;
+        border-width:1px;
+    }
+    .table td {
+        font-size:14px;
+        padding:5px;
+        border-style:solid;
+        border-width:1px;
+        width: 25%;
+        vertical-align: top;
+    }
+    .table ol {
+    }
+    .table .title {
+        font-size:26px;
+    }
+    .table .subheader {
+        width: 50%;
+    }
+    .table .terms {
+        font-size:12px;
+    }
+    .table .signature {
+        border-bottom:none;
+        border-right:none;
+        border-left:none;
+        padding-top:20px;
+        text-align:center;
+        height:50px
+    }
+    .table .border_no_bottom {
+        border-bottom: none;
+    }
+    .table .border_no_top {
+        border-top: none;
+    }
+    .table .border_no_right {
+        border-right: none;
+    }
+    .table .border_no_left {
+        border-left: none;
+    }
+    .table .naedo {
+        display: block;
+    }
+    .table .grindrod {
+        display: block;
+    }
+</style>
+
+
+
+<!--HTML-->
+<html>
+
+    <body onload="onPageLoad()">
+        <title>{!{loan.branch.company.trading_name}!}</title>
+        <!--TABLE paqe 1-->
+        <table class="table">
+            <tr>
+                <th class="title border_no_bottom" colspan="4">{!{loan.branch.company.trading_name}!}</th>
+            </tr>
+            <tr>
+                <th class="title border_no_bottom" colspan="4">{{num1}} + {{num2}} = {{ num1 + num2 }}</th>
+            </tr>
+            <tr>
+                <th class="header border_no_bottom border_no_top" colspan="4">PRE-AGREEMENT STATEMENT & QUOTATION FOR SMALL CREDIT AGREEMENTS</th>
+            </tr>
+            <tr>
+                <th class="header border_no_top" colspan="4">In terms of section 92 of the National Credit Act 34 of 2005 | NCR number: {!{loan.branch.company.ncr_number}!}</th>
+            </tr>
+
+            <!--Credit Provider and Borrower Header-->
+            <tr>
+                <th class="subheader border_no_bottom" colspan="2">Credit Provider Details</th>
+                <th class="subheader border_no_bottom" colspan="2">Borrower Details</th>
+            </tr>
+
+            <!--Credit Provider and Borrower Details-->
+            <tr>
+                <td class="border_no_right border_no_top">Credit provider:
+                    <br>Registration number:
+                    <br>Branch:
+                    <br>Physical address:
+                    <br>
+                    <br>
+                    <br>
+                    <br>Tel number:
+                    <br>Branch Manager:
+                </td>
+
+                <td class="border_no_left border_no_top">{!{loan.branch.company.trading_name}!}
+                    <br>{!{loan.branch.company.reg_number}!}
+                    <br>{!{loan.branch.name}!}
+                    <br>{!{loan.branch.address_line_1}!}
+                    <br>{!{loan.branch.address_line_2}!}
+                    <br>{!{loan.branch.address_city}!}
+                    <br>{!{loan.branch.address_province}!}
+                    <br>{!{loan.branch.phone_number}!}
+                    <br>{!{loan.branch.branch_manager.first_name}!}
+                </td>
+
+                <td class="border_no_right border_no_top">Name of client:
+                    <br>Client type:
+                    <br>Client number:
+                    <br>ID number:
+                    <br>Physical address:
+                    <br>
+                    <br>
+                    <br>Cell number:
+                    <br>Transaction date:
+                </td>
+
+                <td class="border_no_left border_no_top">{!{loan.client.first_name}!} {!{loan.client.surname}!}
+                    <br>{!{loan.client.category.name}!}
+                    <br>{!{loan.client.client_number}!}
+                    <br>{!{loan.client.id_number}!}
+                    <br>{!{loan.client.address_line_1}!}
+                    <br>{!{loan.client.address_city}!}
+                    <br>{!{loan.client.address_postal}!}
+                    <br>{!{loan.client.cellphone_number}!}
+                    <br>{!{loan.client.date_created|date:"D d M Y"}!}
+                </td>
+            </tr>
+
+            <!--Loan Agreement and Affordability Header-->
+            <tr>
+                <th class="subheader border_no_bottom" colspan="2">Loan Agreement</th>
+                <th class="subheader border_no_bottom" colspan="2">Affordability</th>
+            </tr>
+
+            <!--Loan Agreement and Affordability Details-->
+            <tr>
+                <td class="border_no_right border_no_top" rowspan="3">Loan number:
+                    <br>Loan product name:
+                    <br>Loan capital:
+                    <br>Initiation fee:
+                    <br>Monthly service fee:
+                    <br>Monthly interest:
+                    <br>Monthly Vat:
+                    <br>Total monthly instalment:
+                    <br>
+                    <br>Number of instalments:
+                    <br>Instalment frequency:
+                    <br>Total charges:
+                    <br>Total repayment:
+                    <br>
+                    <br>Payout method:
+                    <br>Loan purpose:
+                </td>
+
+                <td class="border_no_left border_no_top" rowspan="3">{!{loan.loan_number}!}
+                    <br>R {!{loan.product.name}!} {!{loan.product.amount|floatformat:"0"}!}
+                    <br>R {!{loan.product.amount|floatformat:2}!}
+                    <br>R {!{loan.product.instalment_initiation_inc_vat|floatformat:2}!}
+                    <br>R {!{loan.product.instalment_service_inc_vat|floatformat:2}!}
+                    <br>R {!{loan.product.instalment_interest|floatformat:2}!}
+                    <br>R {!{loan.product.instalment_vat_total|floatformat:2}!}
+                    <br>R {!{loan.product.instalment_total_inc_vat|floatformat:2}!}
+                    <br>
+                    <br>{!{loan.product.period}!}
+                    <br>Monthly
+                    <br>R {!{loan.product.total_cost_of_credit|floatformat:2}!}
+                    <br>R {!{loan.product.total_repayment_inc_vat|floatformat:2}!}
+                    <br>
+                    <br>{!{datamodel.loan.attributes.payout_method.options[loan.payout_method]}!}
+                    <br>{!{datamodel.loan.attributes.purpose.options[loan.purpose]}!}
+                </td>
+
+                <td class="border_no_right border_no_top border_no_bottom">Gross income:
+                    <br>Expenses:
+                    <br>Net income:
+                    <br>Monthly instalment:
+                    <br>
+                </td>
+
+                <td class="border_no_left border_no_top border_no_bottom">
+                {!{ with income={!{loan.client.salary_income|add:
+                                 loan.client.other_income}!}
+                                 
+                        expenses={!{loan.client.rent_expense|add:
+                                   loan.client.food_expense|add:
+                                   loan.client.child_expense|add:
+                                   loan.client.other_loans|add:
+                                   loan.client.other_expense}!} }!}    
+                                   
+                    R {!{income|floatformat:2}!}
+                    <br>R {!{expenses|floatformat:2}!}
+                    <br>R {!{income|add:-expenses|floatformat:2}!}
+                    <br>R {!{loan.product.instalment_total_inc_vat|floatformat:2}!}
+                    {!{ endwith }!}
+                </td>
+            </tr>
+
+            <tr>
+                <th class="border_no_top border_no_bottom" colspan="2">Debit Order Details
+                </th>
+            </tr>
+
+            <tr>
+                <td class="border_no_right border_no_top">Bank name:
+                    <br>Branch code:
+                    <br>Account type:
+                    <br>Account number:
+                    <br>Instalment amount:
+                    <br>First debit order date:
+                    <br>Last debit order date:
+                    <br>Bank statement inscription:
+                    <br>FEZA card number:</td>
+
+                <td class="border_no_left border_no_top">Grindrod Bank
+                    <br>{!{loan.client.bank.bank_code}!}
+                    <br>{!{datamodel.client.attributes.acc_type.options[loan.client.acc_type]}!}
+                    <br>{!{loan.client.acc_number}!}
+                    <br>R {!{loan.product.instalment_total_inc_vat|floatformat:2}!}
+                    <br>{!{loan.first_instalment_date|date:"D d M Y"}!}
+                    <br>{!{loan.first_instalment_date.month|add:loan.product.period|add:"-1"|date:"D d M Y"}!}
+                    <br>{!{loan.branch.allps_bank_inscription}!}
+                    <br><div id="feza_card"></div>
+                </td>
+            </tr>
+
+            <!--Terms and Conditions and Borrowers Declaration Header-->
+            <tr>
+                <th class="subheader border_no_bottom" colspan="4">Terms and Conditions</th>
+            </tr>
+
+            <!--Terms and Conditions and Borrowers Declaration Details-->
+            <tr>
+                <td class="border_no_top terms" colspan="4">
+                    <ol>
+                        <li><b>Contracting Parties.</b> In terms of section 93(2) of the National Credit Act 34 of 2005 (&quot;the act&quot;), the client hereby applies to {!{loan.branch.company.trading_name}!}, {!{loan.branch.company.address_line_1}!}, {!{loan.branch.company.address_city}!}, {!{loan.branch.company.address_postal}!}, tel. {!{loan.branch.company.phone_number}!} to
+                            enter into a small credit agreement. The Client Details and Payment Schedule stated above sets out the client and payment information relating to this agreement.</li>
+                        <li><b>Statements.</b> {!{loan.branch.company.trading_name}!} shall provide an electronic statement of account to the client on or before the last day of every month for the duration of this agreement.</li>
+                        <li><b>Termination and Settlement.</b> The client may settle this agreement on or before the last instalment date. The settlement amount shall be the total of the following amounts:
+                            <ol type="a">
+                                <li>The unpaid balance of the principal debt at the time;</li>
+                                <li>The unpaid interest charges (if applicable);</li>
+                                <li>All other fees, charges and insurance payable by the client to {!{loan.branch.company.trading_name}!} up to the settlement date.</li>
+                            </ol>
+                        </li>
+                        <li><b>Lender's right to terminate the Agreement.</b>If the client is in default under this agreement, {!{loan.branch.company.trading_name}!} may take the steps settle out in Part C of Chapter 6 of the NCA, to enforce and terminate this agreement.
+                            The unilateral termination of this agreement by {!{loan.branch.company.trading_name}!} does not suspend or terminate any residual obligations of {!{loan.branch.company.trading_name}!} under this agreement or the NCA.</li>
+                        <li><b>Addresses for receiving of documents.</b> All correspondence, documents, pleadings and notices relating to the agreement must be sent to either party to their chosen addresses as stated in this agreement. Either party must inform
+                            each other, by registered mail, by hand or electronic mail of any change in address.</li>
+                        <li><b>Payment allocations.</b> All monies paid by the client will first go to the redemption of collection costs (if any) and then to the redemption of fees, interest and insurance and thereafter the initial loan amount.</li>
+                        <li><b>Late/short payments</b>. If payments are late or short, {!{loan.branch.company.trading_name}!}
+                            <ol type="a">
+                                <li>May charge penalty interest at a rate which shall be equivalent to the maximum rate which {!{loan.branch.company.trading_name}!} was entitled to charge interest at in terms of the Act, if such charges were levied in terms of this
+                                    agreement.
+                                </li>
+                                <li>Has the right to claim immediate payment of all scheduled payments; or</li>
+                                <li>Keep the Client bound to the terms of this agreement and request all future payments as and when they become due and payable.</li>
+                                <li>If {!{loan.branch.company.trading_name}!} accepts late or short payments or waives penalty interest one or more times, no right will be lost and {!{loan.branch.company.trading_name}!} maintains the right to require payment on time and in full.</li>
+                            </ol>
+                        </li>
+                        <li><b>Costs risks and obligations.</b> The Client acknowledges that he/she understands all his/her risks and obligations as well as all the costs under this agreement.</li>
+                        <li><b>Complaints.</b> Complaints may be directed to {!{loan.branch.company.trading_name}!} at the contact details provided in this agreement or to the National Credit Regulator (011) 551-2600.</li>
+                        <li><b>Cession.</b> {!{loan.branch.company.trading_name}!} has the right on written notice to the Client to transfer (code and assign) all {!{loan.branch.company.trading_name}!}' rights and obligations in this agreement to a third party and the Client will
+                            then pay the third party instead of {!{loan.branch.company.trading_name}!}.</li>
+                        <li><b>Whole Agreement.</b> This Agreement contains the full and complete Agreement between the Client and {!{loan.branch.company.trading_name}!}. No additional unspoken or implied terms and conditions will apply, unless otherwise implied by the
+                            Act. No changes to these terms and conditions, or any letting go (waiver of rights) will be of force or effect unless written down and signed by or on behalf of both {!{loan.branch.company.trading_name}!} and the Client.</li>
+                    </ol>
+                </td>
+            </tr>
+        </table>
+
+
+
+
+
+
+        <!--TABLE paqe 2-->
+        <table class="table break">
+            <!--Borrowers Declaration Heading-->
+            <tr>
+                <th class="border_no_bottom" colspan="4">Borrowers Declaration
+                </th>
+            </tr>
+
+            <!--Borrowers Declaration Details-->
+            <tr>
+                <td class="border_no_top terms" colspan="4">
+                    <ol>
+                        <li><b>Obligations.</b> I will be able to satisfy in a timely manner all credit obligations to which I am party.</li>
+                        <li><b>Clarification.</b> Before signing of this agreement, I have the right to request for further clarification of my risks, costs, obligations or any other aspect under this agreement which are not fully understood by me.</li>
+                        <li><b>Truthfulness.</b> I have fully and truthfully answered any request for information by the lender as part of the assessment required for granting of the loan under this agreement and acknowledge that it is a complete defence to
+                            an allegation that this agreement was reckless if it is established that I failed to fully and truthfully answer any request for information in relation to this agreement.</li>
+                        <li><b>Over-indebtedness.</b> I am not in the process of being declared over-indebted by a debt counsellor or court nor in the process of applying to any debt counsellor or competent court for an order declaring me over-indebted.</li>
+                        <li><b>Administration.</b> I am not under administration nor in the process of applying for an administration order.</li>
+                        <li><b>Contractual Capacity.</b> I am not an emancipated minor, nor declared mentally unfit by a competent court.</li>
+                        <li><b>Personal Choice.</b> I acknowledge being indebted to the lender, arising from credit being advanced to me on my specific instance and request, without duress.</li>
+                        <li><b>Authorization.</b> I have given authorization for this loan to be submitted to the NCR and to Compuscan.</li>
+                    </ol>
+                </td>
+            </tr>
+
+            <!--Debit Order Authorization Heading-->
+            <tr id="naedo_header">
+                <th class="border_no_bottom" colspan="4">Debit Order Authorization: Flexible Debit Order Date NAEDO
+                </th>
+            </tr>
+
+            <tr id="naedo_terms">
+                <td class="border_no_top terms" colspan="4">I hereby authorize {!{loan.branch.company.reg_name}!} <i>trading as</i> {!{loan.branch.company.trading_name}!} to issue and deliver debit order payment instructions to your banker for collection against my above-mentioned account and Bank indicated above on condition
+                    that the sum of each payment instruction and frequency of payment requests will never exceed the obligations as agreed and defined in the Agreement specified. I can only service the obligations defined in here if the payment instructions
+                    are executed as close as possible to when I receive my salary or wages which dates vary from month to month, especially during December of each year. To curb against (1) unpaid bank charges (2) losing the benefits described in the
+                    agreement quoted (3) incurring penalties due to non-payment; I explicitly authorises {!{loan.branch.company.reg_name}!} trading as {!{loan.branch.company.trading_name}!} to utilise the functionality of Tracking supported on the NAEDO Payment Stream. Tracking
+                    supported on the NAEDO Payment Stream has been explained to me and I acknowledge that my above-mentioned account will be interrogated for a defined period until this period has lapsed or until payment was received. I hereby agree that
+                    in instances of an unpaid item, {!{loan.branch.company.reg_name}!} trading as Tsheleka Cash Loans may submit the arrear payment together with a further due payment in any payment cycle or frequency as indicated above. I hereby agree that subsequent
+                    payment instructions will continue to be delivered in terms of this authority until all obligations have been paid. This authorization will remain in force until cancelled by me in writing. I hereby acknowledge that my bank will charge
+                    fees to my account as agreed with them once they process this instruction.
+                </td>
+            </tr>
+
+            <tr id="grindrod_header">
+                <th class="border_no_bottom" colspan="4">Flexible Debit Order Date Authorization For Debt Repayments On EFT
+                </th>
+            </tr>
+
+            <tr id="grindrod_terms">
+                <td class="border_no_top terms" colspan="4">Instructions given by Intecon via the Intecon acquiring bank to my Bank shall be treated by my Bank as instructions that have been given personally by me. The number of payment instructions, the variable money value of any repayment instructions
+                    to cater amongst other for arrear interest, interest rate changes or premium increases, may never exceed my indebtedness or obligations in terms of the agreements recorded in here. My first payment instruction can be delivered for
+                    payment to my bank on a date which is three days from today. Payment instructions must be given to my bank to correspond with the date on which my salary is deposited into my account, or as close as possible to such date, until such
+                    time as all my obligations have been settled in full. I agree to the presentment of two payment instructions in any payment cycle should payment due in the past not have been effectuated. This authority and mandate may be ceded or
+                    assigned to any third party should the underlying agreements be ceded or assigned. I foresee that I may change my bank and bank account particulars reflected in here in which instance I will notify the beneficiaries specified or any
+                    new beneficiary should the agreement be ceded or assigned to any third party. Should I however forget to notify you or the assigned third party or if you, Intecon or the assigned third party obtain my new bank particulars on own account
+                    this mandate issued will not lapse but will cover such new bank information obtained and you, Intecon and the assigned third party may attach such new information to this signed document as annexure and the annexure attached must be
+                    read together with this mandate by my new bank. I agree and understand that although this authority and mandate may be cancelled such cancellation will not cancel the agreement. I understand that I cannot reclaim payments made and
+                    received from my bank whilst such amounts are still legally owing to the beneficiaries recorded or the new assigned beneficiary.
+                </td>
+            </tr>
+
+            <tr id="feza_header">
+                <th class="border_no_bottom" colspan="4">FEZA Card Powered by Intecon Acknowledgement
+                </th>
+            </tr>
+            <tr id="feza_terms">
+                <td class="border_no_top terms" colspan="4">                  
+<b>I, the undersigned whose particulars are correctly reflected above, hereby acknowledge:</b>
+                    <ol class="ol" type="a">
+                        <li>Receipt of the above quoted VISA FEZA powered by Intecon card;
+                            <br>
+                            <li>Receipt of the sealed PIN Mailer.
+                                <br>
+                    </ol> 
+<b>I further confirm that:</b>
+                    <ol>
+                        <li>A copy of my Identity Document / Passport was handed over and filed with the Branch.</li>
+                        <li>The issue of the FEZA powered by Intecon Card and usage is subject to terms and conditions laid down by Intecon and FNB, amongst other, the payment of transaction fees once funds are paid into the card and once used for ATM withdrawals
+                            or Cash Back at Point of Sale;</li>
+                        <li>A replacement Card and PIN Mailer may only be obtained from {!{loan.branch.company.trading_name}!} including any updates should my cellular number change in future;</li>
+                        <li>Funds paid into the card must be accessed once within the first 32 days;</li>
+                        <li>I will contact the Intecon Helpdesk on (012) 993 8383 for assistance;</li>
+                        <li>I will immediately contact the FNB Helpdesk on 0861 313 210 to report a lost or stolen FEZA Card.</li>
+                    </ol>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="signature" colspan="2">
+                    <img height="100px" width="200px" src="{!{loan.client.terms_acceptance}!}" alt="Loan Originator Signature">
+                    <br>_________________________
+                    <br>Loan Originator Signature
+                </td>
+
+                <td class="signature" colspan="2">
+                    <img height="100px" width="200px" src="{!{loan.branch.branch_manager.terms_acceptance}!}" alt="Loan Originator Signature">
+                    <br>_________________________
+                    <br>Client Signature
+                </td>
+            </tr>
+
+        </table>
+    </body>
+
+</html>

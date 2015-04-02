@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block title %}ADD!{% endblock %}
+
+{% block header %} {{ super() }} ADD!{% endblock %}
+
+{% block content %} {{ num1 }} + {{num2}} = {{num1 + num2}} {% endblock %}
+
+{% block scripts %}
+    <script src="/static/scripts.js"></script>
+{% endblock %}
